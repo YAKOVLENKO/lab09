@@ -52,7 +52,8 @@ $ rm -rf example1 example2
 $ rm -rf log.txt
 ```
 Создаем файл CMakeLists.txt и редактируем его
-```ShellSession #Настройки
+```ShellSession 
+#Настройки:
 $ cat > CMakeLists.txt <<EOF
 cmake_minimum_required(VERSION 3.0)
 project(print)
