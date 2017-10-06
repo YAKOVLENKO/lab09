@@ -18,7 +18,7 @@ $ open https://cmake.org/
 ```ShellSession
 $ export GITHUB_USERNAME=<имя_пользователя>
 ```
-Копируем lab03 в lab04
+Копируем lab03 в lab04, переходим в последнюю
 ```ShellSession
 $ git clone https://github.com/${GITHUB_USERNAME}/lab03.git lab04
 $ cd lab04
