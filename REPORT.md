@@ -14,18 +14,18 @@ $ open https://cmake.org/
 - [X] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
-
+Присваивание переменной GITHUB_USERNAME значение
 ```ShellSession
 $ export GITHUB_USERNAME=<имя_пользователя>
 ```
-
+Копируем lab03 в lab04
 ```ShellSession
 $ git clone https://github.com/${GITHUB_USERNAME}/lab03.git lab04
 $ cd lab04
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab04.git
 ```
-
+Компилируем excample1
 ```ShellSession
 $ g++ -I./include -std=c++11 -c sources/print.cpp
 $ ls print.o
@@ -36,7 +36,7 @@ $ ls example1.o
 $ g++ example1.o print.a -o example1
 $ ./example1 && echo
 ```
-
+Компилируем excample2
 ```ShellSession
 $ g++ -I./include -std=c++11 -c examples/example2.cpp
 $ ls example2.o
@@ -44,14 +44,14 @@ $ g++ example2.o print.a -o example2
 $ ./example2
 $ cat log.txt && echo
 ```
-
+Очищаем временные файлы
 ```ShellSession
 $ rm -rf example1.o example2.o print.o 
 $ rm -rf print.a 
 $ rm -rf example1 example2
 $ rm -rf log.txt
 ```
-
+Создаем файл CMakeLists.txt и редактируем его
 ```ShellSession
 $ cat > CMakeLists.txt <<EOF
 cmake_minimum_required(VERSION 3.0)
@@ -77,12 +77,12 @@ $ cat >> CMakeLists.txt <<EOF
 include_directories(\${CMAKE_CURRENT_SOURCE_DIR}/include)
 EOF
 ```
-
+Собираем проект
 ```ShellSession
 $ cmake -H. -B_build
 $ cmake --build _build
 ```
-
+Редактирование CMakeLists.txt
 ```ShellSession
 $ cat >> CMakeLists.txt <<EOF
 
@@ -98,14 +98,14 @@ target_link_libraries(example1 print)
 target_link_libraries(example2 print)
 EOF
 ```
-
+Собираем проекты
 ```ShellSession
 $ cmake --build _build
 $ cmake --build _build --target print
 $ cmake --build _build --target example1
 $ cmake --build _build --target example2
 ```
-
+Проверяем работу примеров
 ```ShellSession
 $ ls -la _build/libprint.a
 $ _build/example1 && echo
@@ -114,20 +114,20 @@ $ _build/example2
 $ cat log.txt && echo
 hello
 ```
-
+Копируем репозиторий и помещаем в директорию CMakeLists 
 ```ShellSession
 $ git clone https://github.com/tp-labs/lab04 tmp
 $ mv -f tmp/CMakeLists.txt .
 $ rm -rf tmp
 ```
-
+Просматриваем файл CMakeLists, собираем проект
 ```ShellSession
 $ cat CMakeLists.txt
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
 $ cmake --build _build --target install
 $ tree _install
 ```
-
+Загрузка созданного в репозиторий
 ```ShellSession
 $ git add CMakeLists.txt
 $ git commit -m"added CMakeLists.txt"
