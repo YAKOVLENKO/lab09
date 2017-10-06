@@ -127,6 +127,15 @@ $ cat CMakeLists.txt
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
 $ cmake --build _build --target install
 $ tree _install
+Вывод: 
+_install
+├── cmake
+│ ├── print-config-noconfig.cmake
+│ └── print-config.cmake
+├── include
+│ └── print.hpp
+└── lib
+└── libprint.a
 ```
 Загрузка созданного в репозиторий
 ```ShellSession
