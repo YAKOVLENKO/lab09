@@ -52,21 +52,21 @@ $ rm -rf example1 example2
 $ rm -rf log.txt
 ```
 Создаем файл CMakeLists.txt и редактируем его
+Настройки:
 ```ShellSession 
-#Настройки:
 $ cat > CMakeLists.txt <<EOF
 cmake_minimum_required(VERSION 3.0)
 project(print)
 EOF
 ```
-
+Требования:
 ```ShellSession
 $ cat >> CMakeLists.txt <<EOF
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 EOF
 ```
-
+Библиотеки:
 ```ShellSession
 $ cat >> CMakeLists.txt <<EOF
 add_library(print STATIC \${CMAKE_CURRENT_SOURCE_DIR}/sources/print.cpp)
@@ -121,7 +121,7 @@ $ git clone https://github.com/tp-labs/lab04 tmp
 $ mv -f tmp/CMakeLists.txt .
 $ rm -rf tmp
 ```
-Просматриваем файл CMakeLists, собираем проект
+Просматриваем файл CMakeLists, собираем проект, отображаем проект в виде дерева
 ```ShellSession
 $ cat CMakeLists.txt
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
