@@ -25,7 +25,7 @@ $ cd lab04
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab04.git
 ```
-Компилируем excample1
+Компилируем example1
 ```ShellSession
 $ g++ -I./include -std=c++11 -c sources/print.cpp #компилируем файл print.cpp
 $ ls print.o #проверяем наличие объектного файла
@@ -36,7 +36,7 @@ $ ls example1.o #проверяем наличие объектного файл
 $ g++ example1.o print.a -o example1 # компилируем с учетом библиотеки print.a
 $ ./example1 && echo #запускаем                                   
 ```
-Компилируем excample2
+Компилируем example2
 ```ShellSession
 $ g++ -I./include -std=c++11 -c examples/example2.cpp #компилируем example2.cpp
 $ ls example2.o #проверяем наличие объектного файла           
