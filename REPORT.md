@@ -14,7 +14,7 @@ $ open https://cmake.org/
 - [X] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
-Присваивание переменной GITHUB_USERNAME значение
+Присваиваем переменной GITHUB_USERNAME значение
 ```ShellSession
 $ export GITHUB_USERNAME=<имя_пользователя>
 ```
@@ -27,22 +27,22 @@ $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab04.git
 ```
 Компилируем excample1
 ```ShellSession
-$ g++ -I./include -std=c++11 -c sources/print.cpp
-$ ls print.o
-$ ar rvs print.a print.o
-$ file print.a
-$ g++ -I./include -std=c++11 -c examples/example1.cpp
-$ ls example1.o
-$ g++ example1.o print.a -o example1
-$ ./example1 && echo
+$ g++ -I./include -std=c++11 -c sources/print.cpp #компилируем файл print.cpp
+$ ls print.o #проверяем наличие объектного файла
+$ ar rvs print.a print.o #архивируем объектный файл
+$ file print.a #получаем информацию об этом файле
+$ g++ -I./include -std=c++11 -c examples/example1.cpp #компилируем example1.cpp
+$ ls example1.o #проверяем наличие объектного файла                                      
+$ g++ example1.o print.a -o example1 # компилируем с учетом библиотеки print.a
+$ ./example1 && echo #запускаем                                   
 ```
 Компилируем excample2
 ```ShellSession
-$ g++ -I./include -std=c++11 -c examples/example2.cpp
-$ ls example2.o
-$ g++ example2.o print.a -o example2
+$ g++ -I./include -std=c++11 -c examples/example2.cpp #компилируем example2.cpp
+$ ls example2.o #проверяем наличие объектного файла           
+$ g++ example2.o print.a -o example2  # компилируем с учетом библиотеки print.a
 $ ./example2
-$ cat log.txt && echo
+$ cat log.txt && echo #проверяем работоспособность программы
 ```
 Очищаем временные файлы
 ```ShellSession
@@ -52,7 +52,7 @@ $ rm -rf example1 example2
 $ rm -rf log.txt
 ```
 Создаем файл CMakeLists.txt и редактируем его
-```ShellSession
+```ShellSession #Настройки
 $ cat > CMakeLists.txt <<EOF
 cmake_minimum_required(VERSION 3.0)
 project(print)
