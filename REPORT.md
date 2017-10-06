@@ -136,6 +136,7 @@ _install
 │ └── print.hpp
 └── lib
 └── libprint.a
+3 directories, 4 files
 ```
 Загрузка созданного в репозиторий
 ```ShellSession
