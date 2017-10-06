@@ -51,7 +51,7 @@ $ rm -rf print.a
 $ rm -rf example1 example2
 $ rm -rf log.txt
 ```
-Создаем файл CMakeLists.txt и редактируем его
+Создаем файл CMakeLists.txt и редактируем его.
 Настройки:
 ```ShellSession 
 $ cat > CMakeLists.txt <<EOF
