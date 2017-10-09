@@ -22,14 +22,14 @@ $ open https://travis-ci.org
 ## Tutorial
 Присваиваем значения перменным GITHUB_USERNAME и GITHUB_TOKEN
 ```ShellSession
-$ export GITHUB_USERNAME=<имя_пользователя>
+$ export GITHUB_USERNAME=YAKOVLENKO
 $ export GITHUB_TOKEN=<полученный_токен>
 ```
-Клонируем lab04 в lab05
+Клонируем lab04 в lab05, переходим в lab05
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab05
-$ cd lab05
-$ git remote remove origin
+$ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab05 #Клонируем
+$ cd lab05 #Переходим в lab05
+$ git remote remove origin 
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05
 ```
 Создаем .travis.yml и заполняем его
@@ -65,7 +65,7 @@ EOF
 ```ShellSession
 $ travis login --github-token ${GITHUB_TOKEN}
 ```
-
+Включаем отображение предупреждений
 ```ShellSession
 $ travis lint
 ```
@@ -75,22 +75,22 @@ $ ex -sc '1i|<фрагмент_вставки_значка>' -cx README.md
 ```
 Выкладываем всё в репозиторий  
 ```ShellSession
-$ git add .travis.yml
-$ git add README.md
-$ git commit -m"added CI"
-$ git push origin master
+$ git add .travis.yml # Добавляем файл для коммита
+$ git add README.md # Добавляем файл для коммита
+$ git commit -m"added CI" # Коммитим с комментарием "added CI"
+$ git push origin master # Выкладываем в репозиторий на сервер
 ```
-
+Работаем с travis
 ```ShellSession
-$ travis lint
-$ travis accounts
-$ travis sync
-$ travis repos
-$ travis enable
-$ travis whatsup
-$ travis branches
-$ travis history
-$ travis show
+$ travis lint #Отображаем предупреждения
+$ travis accounts #Отображаем аккаунт
+$ travis sync #Синхронизируемся
+$ travis repos #Отображаем, какие репозитории доступны, а какие нет
+$ travis enable #Подключаем проект
+$ travis whatsup #Отоброжаем, что изменилось в проекте
+$ travis branches #Отоброжаем обновленную версию проекта
+$ travis history #Отоброжаем историю проекта
+$ travis show #Отображаем проект
 ```
 
 ## Report
