@@ -71,7 +71,7 @@ $ travis lint
 ```
 Вставляем значок 
 ```ShellSession
-$ ex -sc '1i|<фрагмент_вставки_значка>' -cx README.md
+$ ex -sc '1i|[![Build Status](https://travis-ci.org/YAKOVLENKO/lab05.svg?branch=master)](https://travis-ci.org/YAKOVLENKO/lab05)' -cx README.md
 ```
 Выкладываем всё в репозиторий  
 ```ShellSession
