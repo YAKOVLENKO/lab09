@@ -30,7 +30,7 @@ $ export GITHUB_TOKEN=<полученный_токен>
 $ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab05 #Клонируем
 $ cd lab05 #Переходим в lab05
 $ git remote remove origin 
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05 #Соединяем с репозиторием на сервере
 ```
 Создаем .travis.yml и заполняем его
 ```ShellSession
