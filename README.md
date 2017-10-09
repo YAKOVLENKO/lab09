@@ -20,19 +20,19 @@ $ open https://travis-ci.org
 - [X] 9. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
-
+Присваиваем значения перменным GITHUB_USERNAME и GITHUB_TOKEN
 ```ShellSession
 $ export GITHUB_USERNAME=<имя_пользователя>
 $ export GITHUB_TOKEN=<полученный_токен>
 ```
-
+Клонируем lab04 в lab05
 ```ShellSession
 $ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab05
 $ cd lab05
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05
 ```
-
+Создаем .travis.yml и заполняем его
 ```ShellSession
 $ cat > .travis.yml <<EOF
 language: cpp
@@ -61,7 +61,7 @@ addons:
       - cmake-data
 EOF
 ```
-
+Заходим в travis
 ```ShellSession
 $ travis login --github-token ${GITHUB_TOKEN}
 ```
@@ -69,11 +69,11 @@ $ travis login --github-token ${GITHUB_TOKEN}
 ```ShellSession
 $ travis lint
 ```
-
+Вставляем значок 
 ```ShellSession
 $ ex -sc '1i|<фрагмент_вставки_значка>' -cx README.md
 ```
-
+Выкладываем всё в репозиторий  
 ```ShellSession
 $ git add .travis.yml
 $ git add README.md
