@@ -23,7 +23,7 @@ $ export GITHUB_USERNAME=YAKOVLENKO
 $ git clone https://github.com/${GITHUB_USERNAME}/lab05 lab06 #Копируем файлы из lab05 в lab06
 $ cd lab06 #Переходим в репозиторий
 $ git remote remove origin 
-#Соединяемся с репозиторием на сервисе
+	#Соединяемся с репозиторием на сервисе
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06 
 ```
 Создаем папку tests и заполняем ее
