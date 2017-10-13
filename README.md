@@ -80,7 +80,9 @@ EOF
 ```ShellSession
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 $ cmake --build _build
-$ cmake --build _build --target test #Запускаем test
+$ cmake --build _build --target test #Запускаем test (тестовые файлы)
+
+
 ```
 Собираем тесты
 ```ShellSession
