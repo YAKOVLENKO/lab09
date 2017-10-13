@@ -88,7 +88,7 @@ $ cmake --build _build --target test #Запускаем test (тестовые 
 ##
 ## 100% tests passed, 0 tests failed out of 1
 ##
-#T# otal Test time (real) =   0.01 sec
+## Total Test time (real) =   0.01 sec
 
 
 ```
