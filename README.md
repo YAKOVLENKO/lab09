@@ -36,7 +36,7 @@ $ cat > tests/main.cpp <<EOF #Создаем новый файл
 #include "catch.hpp"
 EOF
 ```
-Создаем потоковый текстовый редакор
+Создаем тесты
 ```ShellSession
 $ sed -i '' '/option(BUILD_EXAMPLES "Build examples" OFF)/a\
 option(BUILD_TESTS "Build tests" OFF)
@@ -55,7 +55,7 @@ if(BUILD_TESTS)
 endif()
 EOF
 ```
-Создаем тексты
+
 ```ShellSession
 $ cat >> tests/test1.cpp <<EOF
 #include "catch.hpp"
@@ -76,7 +76,7 @@ TEST_CASE("output values should match input values", "[file]") {
 }
 EOF
 ```
-Зпускаем CMake, через него работаем с CMakeLists.txt
+Запускаем CMake, через него работаем с CMakeLists.txt
 ```ShellSession
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 $ cmake --build _build
@@ -92,7 +92,7 @@ $ cmake --build _build --target test #Запускаем test (тестовые 
 
 
 ```
-Собираем тесты
+Редактируем
 ```ShellSession
 $ sed -i '' 's/lab05/lab06/g' README.md #Заменяем lab05 на lab06
 $ sed -i '' 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml #Заменяем одну строку на другу.
@@ -110,7 +110,7 @@ $ git add .
 $ git commit -m"added tests"
 $ git push origin master
 ```
-Активируем проект
+Активируем проект в travis
 ```ShellSession
 $ travis login --auto
 $ travis enable
