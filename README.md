@@ -100,9 +100,9 @@ $ git push origin master
 $ travis login --auto
 $ travis enable
 ```
-Создаем скриншот
+Создаем скриншот и помещаем его в созданную папку artifacts
 ```ShellSession
-$ mkdir artifacts
+$ mkdir artifacts #Создание папки
 $ screencapture -T 20 artifacts/screenshot.jpg
 <Command>-T
 $ open https://github.com/${GITHUB_USERNAME}/lab06
