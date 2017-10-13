@@ -92,7 +92,7 @@ $ cmake --build _build --target test #Запускаем test (тестовые 
 
 
 ```
-Редактируем
+Редактируем README.md и .travis.yml
 ```ShellSession
 $ sed -i '' 's/lab05/lab06/g' README.md #Заменяем lab05 на lab06
 $ sed -i '' 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml #Заменяем одну строку на другу.
