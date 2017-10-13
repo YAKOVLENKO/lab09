@@ -29,7 +29,7 @@ $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06
 Создаем папку tests и заполняем ее
 ```ShellSession
 $ mkdir tests #Создаем папку tests
-#Скачиваем файл с данного источнка
+	#Скачиваем файл с данного источнка
 $ wget https://github.com/philsquared/Catch/releases/download/v1.9.3/catch.hpp -O tests/catch.hpp 
 $ cat > tests/main.cpp <<EOF #Создаем новый файл
 #define CATCH_CONFIG_MAIN
