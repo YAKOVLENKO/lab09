@@ -25,16 +25,16 @@ $ cd lab06 #Переходим в репозиторий
 $ git remote remove origin 
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06 #соединяемся с репозиторием на сервисе
 ```
-
+Создаем папку tests и заполняем ее
 ```ShellSession
-$ mkdir tests
-$ wget https://github.com/philsquared/Catch/releases/download/v1.9.3/catch.hpp -O tests/catch.hpp
-$ cat > tests/main.cpp <<EOF
+$ mkdir tests #Создаем папку tests
+$ wget https://github.com/philsquared/Catch/releases/download/v1.9.3/catch.hpp -O tests/catch.hpp #Скачиваем файл с данного источнка
+$ cat > tests/main.cpp <<EOF #Создаем новый файл
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 EOF
 ```
-
+Создаем потоковый текстовы редакор
 ```ShellSession
 $ sed -i '' '/option(BUILD_EXAMPLES "Build examples" OFF)/a\
 option(BUILD_TESTS "Build tests" OFF)
@@ -50,7 +50,7 @@ if(BUILD_TESTS)
 endif()
 EOF
 ```
-
+Создаем тексты
 ```ShellSession
 $ cat >> tests/test1.cpp <<EOF
 #include "catch.hpp"
@@ -71,36 +71,36 @@ TEST_CASE("output values should match input values", "[file]") {
 }
 EOF
 ```
-
+Зпускаем CMake, через него рпботаем с CMakeLists.txt
 ```ShellSession
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 $ cmake --build _build
 $ cmake --build _build --target test
 ```
-
+Собираем тесты
 ```ShellSession
-$ sed -i '' 's/lab05/lab06/g' README.md
-$ sed -i '' 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml
+$ sed -i '' 's/lab05/lab06/g' README.md #Заменяем lab05 на lab06
+$ sed -i '' 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml #Заменяем одну строку на другу.
 $ sed -i '' '/cmake --build _build --target install/a\
 - cmake --build _build --target test
 ' .travis.yml
 ```
-
+Проверка travis
 ```ShellSession
 $ travis lint
 ```
-
+Выкладываем файлы
 ```ShellSession
 $ git add .
 $ git commit -m"added tests"
 $ git push origin master
 ```
-
+Активируем проект
 ```ShellSession
 $ travis login --auto
 $ travis enable
 ```
-
+Создаем скриншот
 ```ShellSession
 $ mkdir artifacts
 $ screencapture -T 20 artifacts/screenshot.jpg
