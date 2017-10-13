@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/YAKOVLENKO/lab05.svg?branch=master)](https://travis-ci.org/YAKOVLENKO/lab05)
+[![Build Status](https://travis-ci.org/YAKOVLENKO/lab06.svg?branch=master)](https://travis-ci.org/YAKOVLENKO/lab06)
 ## Laboratory work V
 
 Данная лабораторная работа посвещена изучению систем непрерывной интеграции на примере сервиса **Travis CI**
@@ -10,7 +10,7 @@ $ open https://travis-ci.org
 ## Tasks
 
 - [X] 1. Авторизоваться на сервисе **Travis CI** с использованием **GitHub** аккаунта
-- [X] 2. Создать публичный репозиторий с названием **lab05** на сервисе **GitHub**
+- [X] 2. Создать публичный репозиторий с названием **lab06** на сервисе **GitHub**
 - [X] 3. Ознакомиться со ссылками учебного материала
 - [X] 4. Включить интеграцию сервиса **Travis CI** с созданным репозиторием
 - [X] 5. Получить токен для **Travis CLI** с правами **repo** и **user**
@@ -25,12 +25,12 @@ $ open https://travis-ci.org
 $ export GITHUB_USERNAME=YAKOVLENKO
 $ export GITHUB_TOKEN=<полученный_токен>
 ```
-Клонируем lab04 в lab05, переходим в lab05
+Клонируем lab04 в lab06, переходим в lab06
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab05 #Клонируем
-$ cd lab05 #Переходим в lab05
+$ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab06 #Клонируем
+$ cd lab06 #Переходим в lab06
 $ git remote remove origin 
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05 #Соединяем с репозиторием на сервере
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06 #Соединяем с репозиторием на сервере
 ```
 Создаем .travis.yml и заполняем его
 ```ShellSession
@@ -71,7 +71,7 @@ $ travis lint
 ```
 Вставляем значок 
 ```ShellSession
-$ ex -sc '1i|[![Build Status](https://travis-ci.org/YAKOVLENKO/lab05.svg?branch=master)](https://travis-ci.org/YAKOVLENKO/lab05)' -cx README.md
+$ ex -sc '1i|[![Build Status](https://travis-ci.org/YAKOVLENKO/lab06.svg?branch=master)](https://travis-ci.org/YAKOVLENKO/lab06)' -cx README.md
 ```
 Выкладываем всё в репозиторий  
 ```ShellSession
