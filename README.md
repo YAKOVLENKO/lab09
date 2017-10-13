@@ -16,19 +16,21 @@ $ open https://github.com/philsquared/Catch
 ## Tutorial
 Указываем значение переменной GITHUB_USERNAME
 ```ShellSession
-$ export GITHUB_USERNAME=<имя_пользователя>
+$ export GITHUB_USERNAME=YAKOVLENKO
 ```
 Копируем файлы из lab05 в lab06, соединяемся с репозиторием на сервисе
 ```ShellSession
 $ git clone https://github.com/${GITHUB_USERNAME}/lab05 lab06 #Копируем файлы из lab05 в lab06
 $ cd lab06 #Переходим в репозиторий
 $ git remote remove origin 
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06 #соединяемся с репозиторием на сервисе
+#Соединяемся с репозиторием на сервисе
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06 
 ```
 Создаем папку tests и заполняем ее
 ```ShellSession
 $ mkdir tests #Создаем папку tests
-$ wget https://github.com/philsquared/Catch/releases/download/v1.9.3/catch.hpp -O tests/catch.hpp #Скачиваем файл с данного источнка
+#Скачиваем файл с данного источнка
+$ wget https://github.com/philsquared/Catch/releases/download/v1.9.3/catch.hpp -O tests/catch.hpp 
 $ cat > tests/main.cpp <<EOF #Создаем новый файл
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
@@ -42,11 +44,14 @@ option(BUILD_TESTS "Build tests" OFF)
 $ cat >> CMakeLists.txt <<EOF
 
 if(BUILD_TESTS)
-	enable_testing()
+	enable_testing() #Включаем тестирование для текущего директория
 	file(GLOB \${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
 	add_executable(check \${\${PROJECT_NAME}_TEST_SOURCES})
 	target_link_libraries(check \${PROJECT_NAME} \${DEPENDS_LIBRARIES})
 	add_test(NAME check COMMAND check "-s" "-r" "compact" "--use-colour" "yes") 
+	# Задаем параметры теста:
+	# -s - Отображаем успешное выполнение
+	# -r compact - Выводим в определенном формате
 endif()
 EOF
 ```
@@ -75,7 +80,7 @@ EOF
 ```ShellSession
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 $ cmake --build _build
-$ cmake --build _build --target test
+$ cmake --build _build --target test #Запускаем test
 ```
 Собираем тесты
 ```ShellSession
