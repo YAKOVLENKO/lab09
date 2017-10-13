@@ -104,7 +104,7 @@ $ travis enable
 ```ShellSession
 $ mkdir artifacts #Создание папки
 $ screencapture -T 20 artifacts/screenshot.jpg
-<Command>-T
+<Command>-T 
 $ open https://github.com/${GITHUB_USERNAME}/lab06
 ```
 
