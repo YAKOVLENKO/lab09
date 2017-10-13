@@ -34,7 +34,7 @@ $ cat > tests/main.cpp <<EOF #Создаем новый файл
 #include "catch.hpp"
 EOF
 ```
-Создаем потоковый текстовы редакор
+Создаем потоковый текстовый редакор
 ```ShellSession
 $ sed -i '' '/option(BUILD_EXAMPLES "Build examples" OFF)/a\
 option(BUILD_TESTS "Build tests" OFF)
@@ -71,7 +71,7 @@ TEST_CASE("output values should match input values", "[file]") {
 }
 EOF
 ```
-Зпускаем CMake, через него рпботаем с CMakeLists.txt
+Зпускаем CMake, через него работаем с CMakeLists.txt
 ```ShellSession
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 $ cmake --build _build
