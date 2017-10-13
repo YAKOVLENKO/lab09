@@ -8,22 +8,22 @@ $ open https://github.com/philsquared/Catch
 
 ## Tasks
 
-- [ ] 1. Создать публичный репозиторий с названием **lab06** на сервисе **GitHub**
-- [ ] 2. Выполнить инструкцию учебного материала
-- [ ] 3. Ознакомиться со ссылками учебного материала
-- [ ] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
+- [X] 1. Создать публичный репозиторий с названием **lab06** на сервисе **GitHub**
+- [X] 2. Выполнить инструкцию учебного материала
+- [X] 3. Ознакомиться со ссылками учебного материала
+- [X] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
-
+Указываем значение переменной GITHUB_USERNAME
 ```ShellSession
 $ export GITHUB_USERNAME=<имя_пользователя>
 ```
-
+Копируем файлы из lab05 в lab06, соединяемся с репозиторием на сервисе
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab05 lab06
-$ cd lab06
-$ git remote remove origin
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06
+$ git clone https://github.com/${GITHUB_USERNAME}/lab05 lab06 #Копируем файлы из lab05 в lab06
+$ cd lab06 #Переходим в репозиторий
+$ git remote remove origin 
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06 #соединяемся с репозиторием на сервисе
 ```
 
 ```ShellSession
