@@ -8,7 +8,7 @@ $ open https://github.com/philsquared/Catch
 
 ## Tasks
 
-- [X] 1. Создать публичный репозиторий с названием **lab06** на сервисе **GitHub**
+- [X] 1. Создать публичный репозиторий с названием **lab07** на сервисе **GitHub**
 - [X] 2. Выполнить инструкцию учебного материала
 - [X] 3. Ознакомиться со ссылками учебного материала
 - [X] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
@@ -18,13 +18,13 @@ $ open https://github.com/philsquared/Catch
 ```ShellSession
 $ export GITHUB_USERNAME=YAKOVLENKO
 ```
-Копируем файлы из lab05 в lab06, соединяемся с репозиторием на сервисе
+Копируем файлы из lab05 в lab07, соединяемся с репозиторием на сервисе
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab05 lab06 #Копируем файлы из lab05 в lab06
-$ cd lab06 #Переходим в репозиторий
+$ git clone https://github.com/${GITHUB_USERNAME}/lab05 lab07 #Копируем файлы из lab05 в lab07
+$ cd lab07 #Переходим в репозиторий
 $ git remote remove origin 
 	#Соединяемся с репозиторием на сервисе
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06 
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab07 
 ```
 Создаем папку tests и заполняем ее
 ```ShellSession
@@ -82,7 +82,7 @@ $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 $ cmake --build _build
 $ cmake --build _build --target test #Запускаем test (тестовые файлы)
 ## Running tests...
-## Test project /home/user1/lab06/_build
+## Test project /home/user1/lab07/_build
 ##    Start 1: check
 ## 1/1 Test #1: check ............................   Passed    0.00 sec
 ##
@@ -94,7 +94,7 @@ $ cmake --build _build --target test #Запускаем test (тестовые 
 ```
 Редактируем README.md и .travis.yml
 ```ShellSession
-$ sed -i '' 's/lab05/lab06/g' README.md #Заменяем lab05 на lab06
+$ sed -i '' 's/lab05/lab07/g' README.md #Заменяем lab05 на lab07
 $ sed -i '' 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml #Заменяем одну строку на другу.
 $ sed -i '' '/cmake --build _build --target install/a\
 - cmake --build _build --target test
@@ -120,7 +120,7 @@ $ travis enable
 $ mkdir artifacts #Создание папки
 $ screencapture -T 20 artifacts/screenshot.jpg
 <Command>-T 
-$ open https://github.com/${GITHUB_USERNAME}/lab06
+$ open https://github.com/${GITHUB_USERNAME}/lab07
 ```
 
 ## Report
