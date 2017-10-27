@@ -1,94 +1,167 @@
-## Laboratory work VII
-[![Build Status](https://travis-ci.org/YAKOVLENKO/lab07.svg?branch=master)](https://travis-ci.org/YAKOVLENKO/lab07)
-Данная лабораторная работа посвещена изучению систем документирования исходного кода на примере **Doxygen**
+## Laboratory work VIII
+
+Данная лабораторная работа посвещена изучению средств пакетирования на примере **CPack**
 
 ```ShellSession
-$ open https://www.stack.nl/~dimitri/doxygen/manual/index.html
+$ open https://cmake.org/Wiki/CMake:CPackPackageGenerators
 ```
 
 ## Tasks
 
-- [X] 1. Создать публичный репозиторий с названием **lab07** на сервисе **GitHub**
+- [X] 1. Создать публичный репозиторий с названием **lab08** на сервисе **GitHub**
 - [X] 2. Выполнить инструкцию учебного материала
 - [X] 3. Ознакомиться со ссылками учебного материала
 - [X] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
-Задаем значения переменным, выбираем редактор
+Устанавливаем значения GITHUB_USERNAME и GITHUB_EMAIL, настраиваем текстовый редактор, определяем команду
 ```ShellSession
-$ export GITHUB_USERNAME=YAKOVLENKO # Присваиваем переменной GITHUB_USERNAME значение YAKOVLENKO
-$ alias edit=nano # Выбираем редактор nano
+$ export GITHUB_USERNAME=YAKOVLENKO
+$ export GITHUB_EMAIL=*******************@yandex.ru
+$ alias edit=nano
+$ alias gsed=sed # for *-nix system
 ```
-Копируем данные, связываемся с репозиторием на сервере
+Клонируем lab07 в lab08, работаем с lab08
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab06 lab07 # Клонируем lab06 в lab07
-$ cd lab07 # Переходим в lab07
-$ git remote remove origin 
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab07 #Соединяемя с репозиторие на сервере
+$ git clone https://github.com/${GITHUB_USERNAME}/lab07 lab08 #К лонируем
+$ cd lab08 # Переходим в папку lab08
+$ git remote remove origin
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab08 # Соединяемся с сервером
 ```
-Создаем новую папку для doxygen
+Настраиваем пакеты
 ```ShellSession
-$ mkdir docs # Создаем папку docs
-$ doxygen -g docs/doxygen.conf # Добавляем в папку doxygen.conf
-$ cat docs/doxygen.conf # Проверяем doxygen.conf
+$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_STRING "v${PRINT_VERSION}")
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+set(PRINT_VERSION \
+\${PRINT_VERSION_MAJOR}.\${PRINT_VERSION_MINOR}.\${PRINT_VERSION_PATCH}.\${PRINT_VERSION_TWEAK})
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_TWEAK 0)
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+set(PRINT_VERSION_PATCH 0)
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\ 
+set(PRINT_VERSION_MINOR 1)
+' CMakeLists.txt
+$ gsed -i '/project(print)/a\ 
+set(PRINT_VERSION_MAJOR 0)
+' CMakeLists.txt
 ```
-Изменяем doxygen.conf
+Добавляем данные
 ```ShellSession
-$ sed -i '' 's/\(PROJECT_NAME.*=\).*$/\1 print/g' docs/doxygen.conf # Даем имя проекту: print (PROJECT_NAME = print)
-$ sed -i '' 's/\(EXAMPLE_PATH.*=\).*$/\1 examples/g' docs/doxygen.conf # Прописываем путь до example (EXAMPLE_PATH = examples)
-$ sed -i '' 's/\(INCLUDE_PATH.*=\).*$/\1 examples/g' docs/doxygen.conf # Прописываем путь до include (INCLUDE_PATH = examples)
-$ sed -i '' 's/\(INPUT *=\).*$/\1 README.md include/g' docs/doxygen.conf # Включаем README.md (INPUT = README.md include)
-$ sed -i '' 's/\(USE_MDFILE_AS_MAINPAGE.*=\).*$/\1 README.md/g' docs/doxygen.conf # Назначаем README.md главной страницей (USE_MDFILE_AS_MAINPAGE = README.md)
-$ sed -i '' 's/\(OUTPUT_DIRECTORY.*=\).*$/\1 docs/g' docs/doxygen.conf # Прописываем путь docs (OUTPUT_DIRECTORY = docs)
+$ touch DESCRIPTION && edit DESCRIPTION
+$ touch ChangeLog.md
+$ DATE=`date +"%a %b %d %Y"` cat > ChangeLog.md <<EOF
+* ${DATE} ${GITHUB_USERNAME} <${GITHUB_EMAIL}> 0.1.0.0
+- Initial RPM release
+EOF
 ```
-Заменяем одни значения другими  в README.md
+Подключаем библиотеки
 ```ShellSession
-$ sed -i '' 's/lab06/lab07/g' README.md # Замена "lab06" на "lab07"
+$ cat > CPackConfig.cmake <<EOF
+include(InstallRequiredSystemLibraries)
+EOF
 ```
-Редактирование print.hpp
+Настройка пакетов
 ```ShellSession
-# документируем функции print 
-$ edit include/print.hpp
+$ cat >> CPackConfig.cmake <<EOF
+set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
+set(CPACK_PACKAGE_VERSION_MAJOR \${PRINT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR \${PRINT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH \${PRINT_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_TWEAK \${PRINT_VERSION_TWEAK})
+set(CPACK_PACKAGE_VERSION \${PRINT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static c++ library for printing")
+EOF
 ```
-Выкладываем изменения в репозиторий на сервере
+
 ```ShellSession
-$ git add . # Выбираем все элементы
-$ git commit -m"added doxygen.conf" # Добавляем комментарий
-$ git push origin master # Выкладываем изменения
+$ cat >> CPackConfig.cmake <<EOF
+
+set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+EOF
+```
+
+```ShellSession
+$ cat >> CPackConfig.cmake <<EOF
+
+set(CPACK_RPM_PACKAGE_NAME "print-devel")
+set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+set(CPACK_RPM_PACKAGE_GROUP "print")
+set(CPACK_RPM_PACKAGE_URL "https://github.com/${GITHUB_USERNAME}/lab07")
+set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
+set(CPACK_RPM_PACKAGE_RELEASE 1)
+EOF
+```
+
+```ShellSession
+$ cat >> CPackConfig.cmake <<EOF
+
+set(CPACK_DEBIAN_PACKAGE_NAME "libprint-dev")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://${GITHUB_USERNAME}.github.io/lab07")
+set(CPACK_DEBIAN_PACKAGE_PREDEPENDS "cmake >= 3.0")
+set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+EOF
+```
+Добавляем CPack
+```ShellSession
+$ cat >> CPackConfig.cmake <<EOF
+
+include(CPack)
+EOF
+```
+Добавляем CPackConfig.cmake
+```ShellSession
+$ cat >> CMakeLists.txt <<EOF
+
+include(CPackConfig.cmake)
+EOF
+```
+Меняем меняем lab07 на lab08 в README.md
+```ShellSession
+$ gsed -i 's/lab07/lab08/g' README.md
+```
+Добавляем на сервер
+```ShellSession
+$ git add .
+$ git commit -m"added cpack config"
+$ git push origin master
 ```
 Соединяемся с travis
 ```ShellSession
-$ travis login --auto # Заходим в travis
-$ travis enable # Даем доступ к lab07
+$ travis login --auto
+$ travis enable
 ```
-Работаем с docs, выкладываем изменения на сервер
+Настраиваем packages
 ```ShellSession
-$ doxygen docs/doxygen.conf # Указываем путь до doxygen.conf
-$ ls | grep "[^docs]" | xargs rm -rf # Фильтруем docs
-$ mv docs/html/* . && rm -rf docs # # Переносим составляющие в html и удаляем docs
-$ git checkout -b gh-pages # Создаем ветку gh-pages, переключаемся на нее
-$ git add . # Выбираем все элементы
-$ git commit -m"added documentation" # Комментируем
-$ git push origin gh-pages # Выкладываем изменения на gh-pages
-$ git checkout master # Возвращаемся на верку master
+$ cmake -H. -B_build
+$ cmake --build _build
+$ cd _build
+$ cpack -G "DEB" # Для ubuntu
+$ cd ..
 ```
-Работаем со снимками экрана и Google Disk
+Строим target-пакеты
 ```ShellSession
-$ mkdir artifacts && cd artifacts # Создаем папку artifacts и переходим в неё
-$ import screenshot.png # Делаем снимок экрана
-<Command>-T
-$ open https://${GITHUB_USERNAME}.github.io/lab07/print_8hpp_source.html # Открываем страницу с print.hpp
-$ gdrive upload screenshot.png # Загружаем снимок на Google Disk
-$ SCREENSHOT_ID=`gdrive list | grep screenshot | awk '{ print $1; }'` # Задаем ID изображения
-$ gdrive share ${SCREENSHOT_ID} --role reader --type user --email rusdevops@gmail.com # Разрешаем доступ (чтение) rusdevops@gmail.com
-$ echo https://drive.google.com/open?id=${SCREENSHOT_ID} # Открываем изображение
+$ cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
+$ cmake --build _build --target package
+```
+Выводим дерево artifacts
+```ShellSession
+$ mkdir artifacts
+$ mv _build/*.tar.gz artifacts
+$ tree artifacts
 ```
 
 ## Report
 
 ```ShellSession
 $ cd ~/workspace/labs/
-$ export LAB_NUMBER=07
+$ export LAB_NUMBER=08
 $ git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER}
 $ mkdir reports/lab${LAB_NUMBER}
 $ cp tasks/lab${LAB_NUMBER}/README.md reports/lab${LAB_NUMBER}/REPORT.md
@@ -99,11 +172,10 @@ $ gistup -m "lab${LAB_NUMBER}"
 
 ## Links
 
-- [HTML](https://ru.wikipedia.org/wiki/HTML)
-- [LAΤΕΧ](https://ru.wikipedia.org/wiki/LaTeX)
-- [man](https://ru.wikipedia.org/wiki/Man_(%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0_Unix))
-- [CHM](https://ru.wikipedia.org/wiki/HTMLHelp)
-- [PostScript](https://ru.wikipedia.org/wiki/PostScript)
+- [DMG](https://cmake.org/cmake/help/latest/module/CPackDMG.html)
+- [DEB](https://cmake.org/cmake/help/latest/module/CPackDeb.html)
+- [RPM](https://cmake.org/cmake/help/latest/module/CPackRPM.html)
+- [NSIS](https://cmake.org/cmake/help/latest/module/CPackNSIS.html)
 
 ```
 Copyright (c) 2017 Братья Вершинины
