@@ -122,7 +122,7 @@ $ cat >> CMakeLists.txt <<EOF
 include(CPackConfig.cmake)
 EOF
 ```
-Меняем меняем lab07 на lab08 в README.md
+Меняем lab07 на lab08 в README.md
 ```ShellSession
 $ gsed -i 's/lab07/lab08/g' README.md
 ```
