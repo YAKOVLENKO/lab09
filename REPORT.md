@@ -16,19 +16,19 @@ $ open https://cmake.org/Wiki/CMake:CPackPackageGenerators
 ## Tutorial
 Устанавливаем значения GITHUB_USERNAME и GITHUB_EMAIL, настраиваем текстовый редактор, определяем команду
 ```ShellSession
-$ export GITHUB_USERNAME=YAKOVLENKO
-$ export GITHUB_EMAIL=*******************@yandex.ru
-$ alias edit=nano
-$ alias gsed=sed # for *-nix system
+$ export GITHUB_USERNAME=YAKOVLENKO # Присваиваем значение переменной GITHUB_USERNAME
+$ export GITHUB_EMAIL=*******************@yandex.ru # Присваиваем значение переменной GITHUB_EMAIL
+$ alias edit=nano # Выбираем текстовый редактор 
+$ alias gsed=sed # Указываем, что gsed выполняет то же самое, что и sed
 ```
 Клонируем lab07 в lab08, работаем с lab08
 ```ShellSession
-$ git clone https://github.com/${GITHUB_USERNAME}/lab07 lab08 #К лонируем
+$ git clone https://github.com/${GITHUB_USERNAME}/lab07 lab08 # Клонируем материал из lab07 в lab08
 $ cd lab08 # Переходим в папку lab08
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab08 # Соединяемся с сервером
 ```
-Настраиваем пакеты
+Настраиваем пакеты (прописываем определенные значения в файл CMakeLists.txt) 
 ```ShellSession
 $ gsed -i '/project(print)/a\
 set(PRINT_VERSION_STRING "v${PRINT_VERSION}")
@@ -52,9 +52,9 @@ set(PRINT_VERSION_MAJOR 0)
 ```
 Добавляем данные
 ```ShellSession
-$ touch DESCRIPTION && edit DESCRIPTION
-$ touch ChangeLog.md
-$ DATE=`date +"%a %b %d %Y"` cat > ChangeLog.md <<EOF
+$ touch DESCRIPTION && edit DESCRIPTION # Создаем и редактируем файл DESCRIPTION
+$ touch ChangeLog.md # Создаем папку ChangeLog.md
+$ DATE=`date +"%a %b %d %Y"` cat > ChangeLog.md <<EOF # Прописываем дату, данные, версию в ChangeLog.md
 * ${DATE} ${GITHUB_USERNAME} <${GITHUB_EMAIL}> 0.1.0.0
 - Initial RPM release
 EOF
@@ -65,7 +65,7 @@ $ cat > CPackConfig.cmake <<EOF
 include(InstallRequiredSystemLibraries)
 EOF
 ```
-Настройка пакетов
+Настраиваем пакеты
 ```ShellSession
 $ cat >> CPackConfig.cmake <<EOF
 set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
@@ -78,7 +78,7 @@ set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static c++ library for printing")
 EOF
 ```
-
+Указываем пути к файлам LICENSE и README.md
 ```ShellSession
 $ cat >> CPackConfig.cmake <<EOF
 
@@ -86,7 +86,7 @@ set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
 set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 EOF
 ```
-
+Настраиваем пакеты: устанавливаем значения, прописываем путь до ChangeLog.md и делаем данный релиз RPM PACKAGE истиной
 ```ShellSession
 $ cat >> CPackConfig.cmake <<EOF
 
@@ -98,7 +98,7 @@ set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
 set(CPACK_RPM_PACKAGE_RELEASE 1)
 EOF
 ```
-
+Настраиваем пакеты: устанавливаем значения, делаем данный релиз DEBIAN PACKAGE истиной
 ```ShellSession
 $ cat >> CPackConfig.cmake <<EOF
 
@@ -128,33 +128,37 @@ $ gsed -i 's/lab07/lab08/g' README.md
 ```
 Добавляем на сервер
 ```ShellSession
-$ git add .
-$ git commit -m"added cpack config"
-$ git push origin master
+$ git add . # Выбираем всё
+$ git commit -m"added cpack config" # Добавляем комментарий
+$ git push origin master # Выкладываем на сервер
 ```
 Соединяемся с travis
 ```ShellSession
-$ travis login --auto
-$ travis enable
+$ travis login --auto # Авторизуемся
+$ travis enable # Подключаем lab08 к travis
 ```
-Настраиваем packages
+Настраиваем архиватор
 ```ShellSession
-$ cmake -H. -B_build
-$ cmake --build _build
-$ cd _build
-$ cpack -G "DEB" # Для ubuntu
-$ cd ..
+$ cmake -H. -B_build # Получаем информацию cMakeLists.txt
+$ cmake --build _build # Создаем папку _build
+$ cd _build # Переходим в папку _build
+$ cpack -G "DEB" # Настраиваем архиватор DEB для ubuntu
+$ cd .. # Выходим из папки
 ```
-Строим target-пакеты
+Архивируем
 ```ShellSession
-$ cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
-$ cmake --build _build --target package
+$ cmake -H. -B_build -DCPACK_GENERATOR="DEB" # Задаеи архивирование в DEB
+$ cmake --build _build --target package # Архивируем
 ```
 Выводим дерево artifacts
 ```ShellSession
-$ mkdir artifacts
-$ mv _build/*.tar.gz artifacts
-$ tree artifacts
+$ mkdir artifacts # Создаем папку artifacts
+$ mv _build/*.deb artifacts # Переносим файлы .deb в artifacts
+$ tree artifacts # Выводим дерево artifacts
+
+artifacts
+└── print-0.1.0.0-Linux.deb
+
 ```
 
 ## Report
